@@ -1,10 +1,9 @@
 package com.yash.summary_meeting.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GeminiService {
@@ -12,11 +11,7 @@ public class GeminiService {
     @Value("${gemini.api.key}")
     private String apiKey;
 
-    private final WebClient webClient;
-
-    public GeminiService(WebClient webClient) {
-        this.webClient = webClient;
-    }
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public String generateContent(String prompt) {
 
@@ -24,81 +19,34 @@ public class GeminiService {
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
                         + apiKey;
 
-        String requestBody = String.format("""
+        String requestBody = """
+        {
+          "contents":[
+            {
+              "parts":[
                 {
-                  "contents": [
-                    {
-                      "parts": [
-                        {
-                          "text": "%s"
-                        }
-                      ]
-                    }
-                  ]
+                  "text":"%s"
                 }
-                """, prompt
-                .replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n"));
+              ]
+            }
+          ]
+        }
+        """.formatted(prompt.replace("\"", "\\\""));
 
-        return webClient
-                .post()
-                .uri(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(requestBody)
-                .retrieve()
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-                // Handle Gemini Errors
-                .onStatus(
-                        HttpStatusCode::isError,
-                        response -> response.bodyToMono(String.class)
-                                .flatMap(errorBody -> {
+        HttpEntity<String> entity =
+                new HttpEntity<>(requestBody, headers);
 
-                                    if (response.statusCode().value() == 400) {
-                                        return reactor.core.publisher.Mono.error(
-                                                new RuntimeException(
-                                                        "Bad Request (400)\n\n" + errorBody
-                                                )
-                                        );
-                                    }
+        ResponseEntity<String> response =
+                restTemplate.exchange(
+                        url,
+                        HttpMethod.POST,
+                        entity,
+                        String.class
+                );
 
-                                    if (response.statusCode().value() == 401) {
-                                        return reactor.core.publisher.Mono.error(
-                                                new RuntimeException(
-                                                        "Unauthorized API Key (401)\n\n" + errorBody
-                                                )
-                                        );
-                                    }
-
-                                    if (response.statusCode().value() == 403) {
-                                        return reactor.core.publisher.Mono.error(
-                                                new RuntimeException(
-                                                        "Permission Denied (403)\n\n" + errorBody
-                                                )
-                                        );
-                                    }
-
-                                    if (response.statusCode().value() == 429) {
-                                        return reactor.core.publisher.Mono.error(
-                                                new RuntimeException(
-                                                        "Gemini API quota exceeded (429).\nPlease wait a few minutes and try again.\n\n"
-                                                                + errorBody
-                                                )
-                                        );
-                                    }
-
-                                    return reactor.core.publisher.Mono.error(
-                                            new RuntimeException(
-                                                    "Gemini API Error\n\n" + errorBody
-                                            )
-                                    );
-
-                                })
-                )
-
-                .bodyToMono(String.class)
-                .block();
-
+        return response.getBody();
     }
-
 }
