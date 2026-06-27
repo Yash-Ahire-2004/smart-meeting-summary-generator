@@ -86,10 +86,6 @@ public class SummaryService {
             SummaryResponse summary =
                     objectMapper.readValue(text, SummaryResponse.class);
 
-            // ===============================
-            // Generate Report Information
-            // ===============================
-
             summary.setReportId(
                     "MSG-" + UUID.randomUUID()
                             .toString()
@@ -105,10 +101,6 @@ public class SummaryService {
                                     )
                             )
             );
-
-            // ===============================
-            // Generate Statistics
-            // ===============================
 
             MeetingStatistics statistics = new MeetingStatistics(
 

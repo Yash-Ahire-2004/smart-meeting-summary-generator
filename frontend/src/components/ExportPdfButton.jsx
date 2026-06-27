@@ -10,10 +10,6 @@ function ExportPdfButton({ summary }) {
 
     const pageWidth = doc.internal.pageSize.getWidth();
 
-    // =========================
-    // Header
-    // =========================
-
     doc.setFillColor(41, 128, 185);
     doc.rect(0, 0, pageWidth, 30, "F");
 
@@ -30,10 +26,6 @@ function ExportPdfButton({ summary }) {
     doc.text("AI Powered Meeting Intelligence", pageWidth / 2, 23, {
       align: "center",
     });
-
-    // =========================
-    // Report Information
-    // =========================
 
     let y = 40;
 
@@ -60,10 +52,6 @@ function ExportPdfButton({ summary }) {
     doc.text("AI Model : Google Gemini 2.5 Flash", 14, y);
 
     y += 12;
-
-    // =========================
-    // Meeting Analytics
-    // =========================
 
     doc.setFont("helvetica", "bold");
 
@@ -101,10 +89,6 @@ function ExportPdfButton({ summary }) {
 
     y = doc.lastAutoTable.finalY + 10;
 
-    // =========================
-    // Agenda
-    // =========================
-
     doc.setFont("helvetica", "bold");
 
     doc.setFontSize(15);
@@ -126,10 +110,6 @@ function ExportPdfButton({ summary }) {
     });
 
     y += 5;
-
-    // =========================
-    // Key Decisions
-    // =========================
 
     doc.setFont("helvetica", "bold");
 
@@ -153,10 +133,6 @@ function ExportPdfButton({ summary }) {
 
     y += 8;
 
-    // =========================
-    // Action Items
-    // =========================
-
     autoTable(doc, {
 
       startY: y,
@@ -168,7 +144,6 @@ function ExportPdfButton({ summary }) {
         item.owner,
 
         item.task,
-
         item.dueDate
 
       ]),
@@ -188,10 +163,6 @@ function ExportPdfButton({ summary }) {
       }
 
     });
-
-    // =========================
-    // Footer
-    // =========================
 
     const pageHeight = doc.internal.pageSize.height;
 
