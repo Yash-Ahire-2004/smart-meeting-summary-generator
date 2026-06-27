@@ -1,0 +1,40 @@
+# ==========================
+# Eclipse Workspace
+# ==========================
+.metadata/
+
+# ==========================
+# Java / Spring Boot
+# ==========================
+summary-meeting/target/
+summary-meeting/.classpath
+summary-meeting/.project
+summary-meeting/.settings/
+summary-meeting/.idea/
+summary-meeting/*.iml
+
+# Ignore local Spring profile with API key
+**/application-local.properties
+
+# ==========================
+# React
+# ==========================
+frontend/node_modules/
+frontend/dist/
+
+# ==========================
+# IDE
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# Logs
+# ==========================
+*.log
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
