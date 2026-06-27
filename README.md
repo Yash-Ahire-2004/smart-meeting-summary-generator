@@ -116,31 +116,31 @@ Entrata
 
 ## 🏠 Home Page
 
-![Home Page](screenshots/Home.png)
+![Home Page](Screenshots/Home.png)
 
 ---
 
 ## 📋 AI Generated Meeting Summary
 
-![Summary](screenshots/Summary.png)
+![Summary](Screenshots/Summary & Analytics.png)
 
 ---
 
 ## 📊 Meeting Analytics Dashboard
 
-![Analytics](screenshots/Analytics.png)
+![Analytics](Screenshots/Summary & Analytics.png)
 
 ---
 
 ## 📄 Professional PDF Report
 
-![PDF](screenshots/PDF.png)
+![PDF](Screenshots/PDF.png)
 
 ---
 
 ## 📖 Swagger API Documentation
 
-![Swagger](screenshots/Swagger.png)
+![Swagger](Screenshots/Swagger.png)
 
 ---
 
