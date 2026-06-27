@@ -122,13 +122,13 @@ Entrata
 
 ## 📋 AI Generated Meeting Summary
 
-![Summary](Screenshots/Summary & Analytics.png)
+![Summary](Screenshots/Summary&Analytics.png)
 
 ---
 
 ## 📊 Meeting Analytics Dashboard
 
-![Analytics](Screenshots/Summary & Analytics.png)
+![Analytics](Screenshots/Summary&Analytics.png)
 
 ---
 
