@@ -7,13 +7,13 @@
 ![Gemini AI](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-blue)
 ![License](https://img.shields.io/badge/License-Educational-success)
 
-An AI-powered full-stack web application that converts meeting transcripts into structured meeting summaries using **Google Gemini 2.5 Flash**.
+An AI-powered full-stack web application that converts raw meeting transcripts into structured meeting summaries using **Google Gemini 2.5 Flash**.
 
-The application automatically extracts:
+The application intelligently extracts:
 
 * 📋 Agenda
 * 🎯 Key Decisions
-* ✅ Action Items
+* ✅ Action Items (Owner & Due Date)
 * 📊 Meeting Analytics
 
 and generates a professional PDF report with a modern responsive dashboard.
@@ -32,6 +32,7 @@ and generates a professional PDF report with a modern responsive dashboard.
 * 🔔 Toast Notifications
 * 📖 Swagger API Documentation
 * 📱 Fully Responsive Design
+* 🛡 Hallucination Management
 
 ---
 
@@ -39,11 +40,11 @@ and generates a professional PDF report with a modern responsive dashboard.
 
 ## Backend
 
-* Java 21
+* Java 17
 * Spring Boot 3.5
 * Spring Web (RestTemplate)
 * Maven
-* Google Gemini API
+* Google Gemini 2.5 Flash API
 * Jackson
 * Lombok
 * Swagger OpenAPI
@@ -58,25 +59,62 @@ and generates a professional PDF report with a modern responsive dashboard.
 * React Hot Toast
 * jsPDF
 * jspdf-autotable
+* React Icons
 
 ---
 
-# 🏗 Architecture
+# 🤖 AI Model Selection & Technical Decisions
+
+## Selected AI Model
+
+**Google Gemini 2.5 Flash**
+
+### Why Gemini 2.5 Flash?
+
+The application uses **Google Gemini 2.5 Flash** because it provides an excellent balance of speed, accuracy, and cost for real-time meeting summarization.
+
+### Reasons for Selection
+
+* ⚡ Fast response time suitable for interactive applications.
+* 🧠 Excellent understanding of long meeting transcripts.
+* 🎯 High-quality extraction of agendas, decisions, and action items.
+* 💰 Cost-efficient compared to larger reasoning models.
+* 🔗 Easy REST API integration with Spring Boot.
+* 📈 Modular architecture allows replacing Gemini with another LLM in the future with minimal changes.
+
+### Hallucination Management
+
+To reduce hallucinations and improve reliability:
+
+* The prompt instructs the model to extract **only explicitly mentioned information**.
+* If an owner is unavailable, it returns **"Not specified"**.
+* If a due date is unavailable, it returns **"Not specified"**.
+* The AI is instructed to return **strict JSON only**, ensuring consistent parsing and reducing formatting errors.
+
+---
+
+# 🏗 System Architecture
 
 ```text
 React Frontend
-       │
-       ▼
+        │
+        ▼
 Spring Boot REST API
-       │
-       ▼
+        │
+        ▼
 Google Gemini 2.5 Flash API
-       │
-       ▼
-AI Generated Meeting Summary
-       │
-       ▼
-Dashboard • Analytics • PDF Export
+        │
+        ▼
+AI Generated Structured JSON
+        │
+        ▼
+Meeting Summary Dashboard
+        │
+        ├────────► PDF Export
+        │
+        ├────────► Copy Summary
+        │
+        └────────► Meeting Analytics
 ```
 
 ---
@@ -136,7 +174,7 @@ cd summary-meeting
 mvn spring-boot:run
 ```
 
-Backend:
+Backend runs on:
 
 ```
 http://localhost:8081
@@ -150,7 +188,7 @@ npm install
 npm run dev
 ```
 
-Frontend:
+Frontend runs on:
 
 ```
 http://localhost:5173
@@ -166,13 +204,13 @@ Create:
 src/main/resources/application-local.properties
 ```
 
-Add:
+Add your Gemini API key:
 
 ```properties
 gemini.api.key=YOUR_GEMINI_API_KEY
 ```
 
-Enable:
+Enable the local profile:
 
 ```properties
 spring.profiles.active=local
@@ -182,13 +220,15 @@ spring.profiles.active=local
 
 # 📡 REST API
 
-### POST
+### Generate Meeting Summary
+
+**POST**
 
 ```
 /api/summarize
 ```
 
-### Request
+### Sample Request
 
 ```json
 {
@@ -196,12 +236,23 @@ spring.profiles.active=local
 }
 ```
 
+### Output
+
+The API returns:
+
+* Report ID
+* Generated Timestamp
+* Agenda
+* Key Decisions
+* Action Items
+* Meeting Statistics
+
 ---
 
 # 📄 PDF Report Includes
 
 * Report ID
-* Generated Time
+* Generated Timestamp
 * Meeting Analytics
 * Agenda
 * Key Decisions
@@ -210,26 +261,38 @@ spring.profiles.active=local
 
 ---
 
-# 🌟 Future Improvements
+# 🌟 Future Enhancements
 
-* Authentication
-* Database Support
+* User Authentication
+* Database Integration
 * Meeting History
-* Email Reports
-* Voice-to-Text
+* Email Summary
 * Calendar Integration
+* Voice-to-Text Support
 * Multi-language Support
+* Retrieval-Augmented Generation (RAG) using previous meeting history
+* Editable summary regeneration (Agenda, Decisions, or Action Items)
 
 ---
 
 # 👨‍💻 Developer
 
-**Yash Ahire**
+## Yash Ahire
 
 Java Full Stack Developer
 
+### Skills
+
+* Java
+* Spring Boot
+* REST APIs
+* React
+* Tailwind CSS
+* Google Gemini AI
+
 GitHub:
-**https://github.com/Yash-Ahire-2004**
+
+https://github.com/Yash-Ahire-2004
 
 ---
 
@@ -239,8 +302,9 @@ GitHub:
 * Spring Boot
 * React
 * Tailwind CSS
-* jsPDF
 * Swagger OpenAPI
+* jsPDF
+* Vite
 
 ---
 
@@ -248,4 +312,6 @@ GitHub:
 
 Developed as part of the **Entrata AI Assignment**.
 
-⭐ If you found this project helpful, please consider giving it a **Star** on GitHub!
+---
+
+## ⭐ If you found this project useful, please consider giving it a Star on GitHub!
