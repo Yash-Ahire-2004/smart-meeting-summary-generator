@@ -1,34 +1,37 @@
 # 🤖 Smart Meeting Summary Generator
 
-An AI-powered full-stack web application that converts meeting transcripts into structured meeting summaries using **Google Gemini AI**.
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-brightgreen)
+![React](https://img.shields.io/badge/React-19-blue)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-38B2AC)
+![Gemini AI](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-blue)
+![License](https://img.shields.io/badge/License-Educational-success)
 
-The application intelligently extracts:
+An AI-powered full-stack web application that converts meeting transcripts into structured meeting summaries using **Google Gemini 2.5 Flash**.
+
+The application automatically extracts:
 
 * 📋 Agenda
 * 🎯 Key Decisions
 * ✅ Action Items
 * 📊 Meeting Analytics
 
-and generates a professional PDF report with a modern, responsive dashboard.
+and generates a professional PDF report with a modern responsive dashboard.
 
 ---
 
-## ✨ Features
+# ✨ Key Highlights
 
-* 🤖 AI-Powered Meeting Summarization (Google Gemini AI)
-* 📋 Automatic Agenda Extraction
-* 🎯 Key Decision Identification
-* ✅ Action Item Detection with Owner & Due Date
-* 📊 Meeting Analytics Dashboard
+* 🤖 Google Gemini 2.5 Flash Integration
+* ⚡ Spring Boot REST API
+* ⚛ React + Vite Frontend
+* 🎨 Tailwind CSS UI
 * 📄 Professional PDF Export
-* 📋 Copy Summary to Clipboard
+* 📊 Meeting Analytics Dashboard
+* 📋 Copy Summary
 * 🔔 Toast Notifications
-* ⏳ Loading Spinner
-* 📱 Fully Responsive UI
 * 📖 Swagger API Documentation
-* 🆔 Unique Report ID Generation
-* 📅 Report Generation Timestamp
-* 🛡 Exception Handling & Input Validation
+* 📱 Fully Responsive Design
 
 ---
 
@@ -38,16 +41,13 @@ and generates a professional PDF report with a modern, responsive dashboard.
 
 * Java 21
 * Spring Boot 3.5
+* Spring Web (RestTemplate)
 * Maven
-* Spring Web
-* Spring WebFlux (WebClient)
 * Google Gemini API
 * Jackson
 * Lombok
-* SLF4J Logging
 * Swagger OpenAPI
-
----
+* SLF4J Logging
 
 ## Frontend
 
@@ -58,26 +58,25 @@ and generates a professional PDF report with a modern, responsive dashboard.
 * React Hot Toast
 * jsPDF
 * jspdf-autotable
-* React Icons
 
 ---
 
-# 🏗 System Architecture
+# 🏗 Architecture
 
 ```text
-                 React Frontend
-                        │
-                        ▼
-            Spring Boot REST API
-                        │
-                        ▼
-             Google Gemini AI API
-                        │
-                        ▼
-        Structured Meeting Summary JSON
-                        │
-                        ▼
-      Dashboard + PDF Export + Analytics
+React Frontend
+       │
+       ▼
+Spring Boot REST API
+       │
+       ▼
+Google Gemini 2.5 Flash API
+       │
+       ▼
+AI Generated Meeting Summary
+       │
+       ▼
+Dashboard • Analytics • PDF Export
 ```
 
 ---
@@ -88,24 +87,8 @@ and generates a professional PDF report with a modern, responsive dashboard.
 Entrata
 │
 ├── frontend
-│   ├── src
-│   ├── public
-│   ├── package.json
-│   └── vite.config.js
-│
 ├── summary-meeting
-│   ├── src
-│   ├── pom.xml
-│   ├── mvnw
-│   └── application.properties
-│
-├── screenshots
-│   ├── Home.png
-│   ├── Summary.png
-│   ├── Analytics.png
-│   ├── PDF.png
-│   └── Swagger.png
-│
+├── Screenshots
 ├── README.md
 └── .gitignore
 ```
@@ -116,19 +99,13 @@ Entrata
 
 ## 🏠 Home Page
 
-![Home Page](Screenshots/Home.png)
+![Home](Screenshots/Home.png)
 
 ---
 
-## 📋 AI Generated Meeting Summary
+## 📋 AI Generated Summary & Analytics
 
-![Summary](Screenshots/Summary&Analytics.png)
-
----
-
-## 📊 Meeting Analytics Dashboard
-
-![Analytics](Screenshots/Summary&Analytics.png)
+![Summary](Screenshots/Summary\&Analytics.png)
 
 ---
 
@@ -138,13 +115,13 @@ Entrata
 
 ---
 
-## 📖 Swagger API Documentation
+## 📖 Swagger Documentation
 
 ![Swagger](Screenshots/Swagger.png)
 
 ---
 
-# 🚀 Installation
+# 🚀 Getting Started
 
 ## Clone Repository
 
@@ -152,53 +129,30 @@ Entrata
 git clone https://github.com/Yash-Ahire-2004/smart-meeting-summary-generator.git
 ```
 
----
-
-## Backend Setup
-
-Navigate to the backend folder:
+## Backend
 
 ```bash
 cd summary-meeting
-```
-
-Run the application:
-
-```bash
 mvn spring-boot:run
 ```
 
-Backend URL
+Backend:
 
-```text
+```
 http://localhost:8081
 ```
 
----
-
-## Frontend Setup
-
-Navigate to the frontend folder:
+## Frontend
 
 ```bash
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the application:
-
-```bash
 npm run dev
 ```
 
-Frontend URL
+Frontend:
 
-```text
+```
 http://localhost:5173
 ```
 
@@ -206,21 +160,19 @@ http://localhost:5173
 
 # ⚙ Configuration
 
-Create a Google Gemini API Key from **Google AI Studio**.
+Create:
 
-Create the file:
-
-```text
+```
 src/main/resources/application-local.properties
 ```
 
-Add your API key:
+Add:
 
 ```properties
 gemini.api.key=YOUR_GEMINI_API_KEY
 ```
 
-Enable the local profile:
+Enable:
 
 ```properties
 spring.profiles.active=local
@@ -228,13 +180,11 @@ spring.profiles.active=local
 
 ---
 
-# 🔌 REST API
+# 📡 REST API
 
-### Generate Meeting Summary
+### POST
 
-**POST**
-
-```text
+```
 /api/summarize
 ```
 
@@ -246,93 +196,40 @@ spring.profiles.active=local
 }
 ```
 
-### Sample Response
+---
 
-```json
-{
-  "reportId": "MSG-D1C5915A",
-  "generatedAt": "27 Jun 2026 11:30 AM",
-  "agenda": [
-    "Sprint Planning"
-  ],
-  "keyDecisions": [
-    "Version 1.0 will be released on Friday"
-  ],
-  "actionItems": [
-    {
-      "owner": "Sarah",
-      "task": "Improve PDF styling",
-      "dueDate": "Wednesday"
-    }
-  ],
-  "statistics": {
-    "agendaCount": 1,
-    "decisionCount": 1,
-    "actionItemCount": 1,
-    "transcriptCharacters": 1450
-  }
-}
-```
+# 📄 PDF Report Includes
+
+* Report ID
+* Generated Time
+* Meeting Analytics
+* Agenda
+* Key Decisions
+* Action Items
+* AI Generated Summary
 
 ---
 
-# 📊 Meeting Analytics
+# 🌟 Future Improvements
 
-The dashboard automatically displays:
-
-* 📋 Agenda Count
-* 🎯 Decision Count
-* ✅ Action Item Count
-* 📝 Transcript Character Count
-
----
-
-# 📄 PDF Export
-
-The generated PDF includes:
-
-* 🆔 Report ID
-* 📅 Generated Timestamp
-* 🤖 AI Model Information
-* 📊 Meeting Analytics
-* 📋 Agenda
-* 🎯 Key Decisions
-* ✅ Action Items
-* 👨‍💻 Developer Footer
-
----
-
-# 🌟 Future Enhancements
-
-* User Authentication
+* Authentication
+* Database Support
 * Meeting History
-* Database Integration
-* Email Summary
+* Email Reports
+* Voice-to-Text
 * Calendar Integration
-* Voice-to-Text Support
 * Multi-language Support
-* Team Collaboration
 
 ---
 
 # 👨‍💻 Developer
 
-## **Yash Ahire**
+**Yash Ahire**
 
 Java Full Stack Developer
 
-### Skills
-
-* Java
-* Spring Boot
-* React
-* REST API
-* Tailwind CSS
-* Google Gemini AI
-
-GitHub
-
-https://github.com/Yash-Ahire-2004
+GitHub:
+**https://github.com/Yash-Ahire-2004**
 
 ---
 
@@ -343,15 +240,12 @@ https://github.com/Yash-Ahire-2004
 * React
 * Tailwind CSS
 * jsPDF
-* Swagger
-* Vite
+* Swagger OpenAPI
 
 ---
 
 # 📜 License
 
-This project was developed as part of the **Entrata AI Assignment** for educational and evaluation purposes.
+Developed as part of the **Entrata AI Assignment**.
 
----
-
-## ⭐ If you found this project helpful, consider giving it a Star on GitHub!
+⭐ If you found this project helpful, please consider giving it a **Star** on GitHub!
